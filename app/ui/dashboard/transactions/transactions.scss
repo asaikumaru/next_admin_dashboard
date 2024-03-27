@@ -1,0 +1,50 @@
+.transactions-container {
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+
+  .transactions-title {
+    margin-bottom: 20px;
+    font-weight: 200;
+    color: var(--textSoft);
+  }
+
+  .transactions-table {
+    width: 100%;
+
+    td {
+      padding: 10px;
+    }
+
+    .transactions-user {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .transactions-user-image {
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .card-status {
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    color: white;
+
+    &.status-pending {
+      background-color: #f7cb7375;
+    }
+
+    &.status-done {
+      background-color: #afd6ee75;
+    }
+
+    &.status-cancelled {
+      background-color: #f7737375;
+    }
+  }
+}
+

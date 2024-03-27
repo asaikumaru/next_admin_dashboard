@@ -1,0 +1,35 @@
+.card-container{
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover{
+      background-color: #2e374a;
+  }
+  .card-texts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card-number{
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .card-detail{
+    font-size: 14px;
+    font-weight:300;
+  }
+
+  .card-detail-positive{
+    color: lime;
+  }
+  .card-detail-negative{
+    color: red;
+  }
+}

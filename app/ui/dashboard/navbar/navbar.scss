@@ -1,0 +1,43 @@
+.navbarContainer {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--bgSoft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .navbarTitle {
+    color: var(--textSoft);
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .navbarMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .navbarSearch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #2e374a;
+      padding: 10px;
+      border-radius: 10px;
+      width: max-content;
+
+      .navbarInput {
+        border: none;
+        background-color: transparent;
+        color: var(--text);
+        outline: none;
+      }
+    }
+
+    .navbarIcons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+}
