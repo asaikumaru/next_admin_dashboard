@@ -4,9 +4,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Pagination from '../../ui/dashboard/pagination/pagination'
 import { fetchUsers } from '@/app/lib/data'
+import { deleteUser } from '@/app/lib/actions'
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || ''
-  const users = await fetchUsers(q)
+  const page = searchParams?.page || 1
+  const { count, users } = await fetchUsers(q, page)
 
   return (
     <div className={styles.container}>
@@ -44,21 +46,26 @@ const UsersPage = async ({ searchParams }) => {
               </td>
               <td>{user.email}</td>
               <td>{user.createdAt?.toString().slice(4, 16)}</td>
-              <td>{user.isAdmin ? 'admin' : 'user'}</td>
-              <td>{user.isActive ? 'active' : 'passive'}</td>
+              <td style={{ textTransform: 'capitalize' }}>{user.isAdmin ? 'admin' : 'user'}</td>
+              <td style={{ textTransform: 'capitalize' }}>
+                {user.isActive ? 'active' : 'passive'}
+              </td>
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.viewButton}`}>View</button>
                   </Link>
-                  <button className={`${styles.button} ${styles.deleteButton}`}>Delete</button>
+                  <form action={deleteUser}>
+                    <input type="hidden" name="id" value={user.id} />
+                    <button className={`${styles.button} ${styles.deleteButton}`}>Delete</button>
+                  </form>
                 </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   )
 }

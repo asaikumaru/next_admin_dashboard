@@ -13,6 +13,7 @@ import {
 } from 'react-icons/md'
 import MenuLink from './menuLink/menuLink'
 import Image from 'next/image'
+import { auth, signOut } from '@/app/auth'
 
 const menuItems = [
   {
@@ -63,21 +64,22 @@ const menuItems = [
 /**
  * Sidebar component to display user information and navigation menu
  */
-const Sidebar = () => {
+const Sidebar = async () => {
+  const { user } = await auth()
   return (
     <div className="sidebarContainer">
       {/* User information section */}
       <div className="sidebarUser">
         <Image
           className="sidebarUserImage"
-          src="/noavatar.png"
+          src={user.img || '/noavatar.png'}
           width={50}
           height={50}
           alt="avatar"
         />
         <div className="sidebarUserDetail">
-          <span className="sidebarUsername">John Doe</span>
-          <span className="sidebarUserTitle">Administrator</span>
+          <span className="sidebarUsername">{user?.username}</span>
+          <span className="sidebarUserTitle">{user?.isAdmin ? 'Admin' : 'User'}</span>
         </div>
       </div>
 
@@ -94,10 +96,17 @@ const Sidebar = () => {
       </ul>
 
       {/* Logout button */}
-      <button className="sidebarLogout">
-        <MdLogout />
-        Logout
-      </button>
+      <form
+        action={async () => {
+          'use server'
+          await signOut()
+        }}
+      >
+        <button className="sidebarLogout">
+          <MdLogout />
+          Logout
+        </button>
+      </form>
     </div>
   )
 }

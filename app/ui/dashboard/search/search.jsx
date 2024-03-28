@@ -1,33 +1,27 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import styles from './search.module.scss'
-import useDebounce from '@/app/hooks/useDebounce'
+import { useDebouncedCallback } from 'use-debounce'
 
-const Search = ({ placeholder = 'Search...' }) => {
+const Search = ({ placeholder }) => {
   const searchParams = useSearchParams()
   const { replace } = useRouter()
   const pathname = usePathname()
-  const [searchValue, setSearchValue] = useState('')
-  const debouncedSearchValue = useDebounce(searchValue, 300)
 
-  const handleSearch = (e) => {
-    setSearchValue(e.target.value)
-  }
+  const handleSearch = useDebouncedCallback((e) => {
+    const params = new URLSearchParams(searchParams)
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', 1)
 
-    if (debouncedSearchValue && debouncedSearchValue.length > 2) {
-      params.set('q', debouncedSearchValue)
+    if (e.target.value) {
+      e.target.value.length > 2 && params.set('q', e.target.value)
     } else {
       params.delete('q')
     }
-
     replace(`${pathname}?${params}`)
-  }, [debouncedSearchValue])
+  }, 300)
 
   return (
     <div className={styles.container}>
@@ -36,7 +30,6 @@ const Search = ({ placeholder = 'Search...' }) => {
         type="text"
         placeholder={placeholder}
         className={styles.input}
-        value={searchValue}
         onChange={handleSearch}
       />
     </div>
