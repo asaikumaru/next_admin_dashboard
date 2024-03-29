@@ -4,6 +4,7 @@ import RightBar from '../ui/dashboard/rightbar/rightbar'
 import Transactions from '../ui/dashboard/transactions/transactions'
 import Chart from '../ui/dashboard/chart/chart'
 
+// test comment
 const Dashboard = () => {
   return (
     <div className="dashboard-wrapper">
